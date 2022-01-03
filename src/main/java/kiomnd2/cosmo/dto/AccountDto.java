@@ -36,5 +36,10 @@ public class AccountDto {
 
     private String location;
 
+    private boolean alarmStudyCreatedByEmail;
+
+    private boolean alarmStudyEnrollmentResultByEmail;
+
+    private boolean alarmStudyUpdatedByEmail;
 
 }

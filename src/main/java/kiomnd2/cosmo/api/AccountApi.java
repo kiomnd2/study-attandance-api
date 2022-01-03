@@ -40,12 +40,12 @@ public class AccountApi {
 
         // 에러 시,, 처리
 
-        //AccountDto accountDto = accountService.processNewAccount(request);
+        AccountDto accountDto = accountService.processNewAccount(request);
         //String token = jwtTokenProvider.createToken(accountDto.getId());
 
         return Response.builder()
                 .token("")
-                /*.account(Response.Account.builder()
+                .account(Response.Account.builder()
                         .id(accountDto.getId())
                         .email(accountDto.getEmail())
                         .joinAt(accountDto.getJoinAt())
@@ -55,10 +55,10 @@ public class AccountApi {
                         .occupation(accountDto.getOccupation())
                         .url(accountDto.getUrl())
                         .location(accountDto.getLocation())
-                        .build())*/
-                .alarmStudyCreated(true)
-                .alarmStudyEnrollmentResult(true)
-                .alarmStudyUpdatedByEmail(true)
+                        .alarmStudyCreated(accountDto.isAlarmStudyCreatedByEmail())
+                        .alarmStudyEnrollmentResult(accountDto.isAlarmStudyEnrollmentResultByEmail())
+                        .alarmStudyUpdatedByEmail(accountDto.isAlarmStudyUpdatedByEmail())
+                        .build())
                 .build();
     }
 
@@ -100,11 +100,6 @@ public class AccountApi {
 
         private Response.Account account;
 
-        private boolean alarmStudyCreated;
-
-        private boolean alarmStudyEnrollmentResult;
-
-        private boolean alarmStudyUpdatedByEmail;
 
         @Getter
         @ToString
@@ -131,6 +126,12 @@ public class AccountApi {
             private String occupation;
 
             private String location;
+
+            private boolean alarmStudyCreated;
+
+            private boolean alarmStudyEnrollmentResult;
+
+            private boolean alarmStudyUpdatedByEmail;
         }
     }
 }
