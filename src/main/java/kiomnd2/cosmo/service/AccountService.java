@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface AccountService {
 
-    Optional<AccountDto> processNewAccount(AccountApi.Request request);
+    AccountDto processNewAccount(AccountApi.Request request);
 
 
 }

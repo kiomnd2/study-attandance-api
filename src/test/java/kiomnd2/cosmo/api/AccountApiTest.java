@@ -28,7 +28,7 @@ class AccountApiTest {
     @Test
     void accountJoinApi() throws Exception {
         final String nickName = "홍길동";
-        final String password = "qwer1234";
+        final String password = "qwer1234!@";
         final String email = "test@email.com";
 
         AccountApi.Request account = AccountApi.Request.builder()
