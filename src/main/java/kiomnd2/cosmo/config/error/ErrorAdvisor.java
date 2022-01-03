@@ -7,19 +7,20 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Optional;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class ErrorAdvisor {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ErrorMessage handlerValidationException(MethodArgumentNotValidException e) {
+    public ErrorMessage<String> handlerValidationException(MethodArgumentNotValidException e) {
         return bindingResult(e.getBindingResult());
     }
 
-    private ErrorMessage bindingResult(BindingResult bindingResult) {
+    private ErrorMessage<String> bindingResult(BindingResult bindingResult) {
         return Optional.ofNullable(bindingResult.getFieldError())
                 .map(it -> ErrorMessage.badRequest(it.getDefaultMessage()))
                 .orElse(ErrorMessage.badRequest("잘못된 요청입니다."));
