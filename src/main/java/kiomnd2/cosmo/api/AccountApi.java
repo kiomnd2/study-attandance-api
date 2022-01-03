@@ -69,17 +69,17 @@ public class AccountApi {
     @AllArgsConstructor
     public static class Request {
 
-        @NotBlank
-        @Length(min = 3, max = 20)
-        @Pattern(regexp = "^[ㄱ-ㅎ가-힣a-z0-9_-]{3,20}$")
+        @NotBlank(message = "해당 값은 필수 입니다")
+        @Length(min = 3, max = 20, message = "적절하지 않은 길이입니다")
+        @Pattern(regexp = "^[ㄱ-ㅎ가-힣a-z0-9_-]{3,20}$", message = "정상적이지 않은 닉네임 입니다")
         private String nickname;
 
-        @Email
-        @NotBlank
+        @Email(message = "이메일 형식에 맞춰주세요")
+        @NotBlank(message = "해당 값을 필수 입니다")
         private String email;
 
-        @NotBlank
-        @Length(min = 8, max = 20)
+        @NotBlank(message = "해당 값은 필수 입니다")
+        @Length(min = 8, max = 20, message = "적절하지 않은 길이입니다")
         private String password;
 
         private boolean alarmStudyCreated;

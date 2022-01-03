@@ -1,10 +1,9 @@
 package kiomnd2.cosmo.repository;
 
-import kiomnd2.cosmo.domain.AccountDao;
+import kiomnd2.cosmo.domain.entity.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-public interface AccountRepository extends JpaRepository<AccountDao, Long> {
+public interface AccountRepository extends JpaRepository<Account, Long> {
 
     boolean existsByEmail(String email);
 

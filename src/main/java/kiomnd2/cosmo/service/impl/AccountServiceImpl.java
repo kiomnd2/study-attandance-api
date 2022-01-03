@@ -1,12 +1,11 @@
 package kiomnd2.cosmo.service.impl;
 
 import kiomnd2.cosmo.api.AccountApi;
-import kiomnd2.cosmo.domain.AccountDao;
+import kiomnd2.cosmo.domain.entity.Account;
 import kiomnd2.cosmo.dto.AccountDto;
 import kiomnd2.cosmo.repository.AccountRepository;
 import kiomnd2.cosmo.service.AccountService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.common.reflection.java.JavaMetadataProvider;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDto processNewAccount(AccountApi.Request request) {
-        AccountDao accountDao = AccountDao.builder()
+        Account account = Account.builder()
                 .nickname(request.getNickname())
                 .email(request.getEmail())
                 .password(request.getPassword()) // TODO 암호화
@@ -31,14 +30,14 @@ public class AccountServiceImpl implements AccountService {
                 .alarmStudyEnrollmentResultByEmail(request.isAlarmStudyUpdatedByEmail())
                 .build();
 
-        AccountDao newAccount = accountRepository.save(accountDao);
+        Account newAccount = accountRepository.save(account);
 
         sendCheckMail(newAccount);
 
         return newAccount.toDto();
     }
 
-    private void sendCheckMail(AccountDao newAccount) {
+    private void sendCheckMail(Account newAccount) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         newAccount.generateEmailCheckToken();
         mailMessage.setTo(newAccount.getEmail());

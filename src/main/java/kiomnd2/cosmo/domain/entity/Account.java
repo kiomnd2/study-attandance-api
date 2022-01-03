@@ -1,4 +1,4 @@
-package kiomnd2.cosmo.domain;
+package kiomnd2.cosmo.domain.entity;
 
 import kiomnd2.cosmo.dto.AccountDto;
 import lombok.*;
@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @EqualsAndHashCode(of ="id") // 무한루프..
 @Entity
-public class AccountDao {
+public class Account {
 
     @Id
     @GeneratedValue
