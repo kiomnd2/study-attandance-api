@@ -1,12 +1,11 @@
 package kiomnd2.cosmo.api;
 
-import kiomnd2.cosmo.config.security.JwtTokenProvider;
+import kiomnd2.cosmo.config.security.jwt.JwtTokenProvider;
 import kiomnd2.cosmo.dto.AccountDto;
 import kiomnd2.cosmo.service.AccountService;
 import kiomnd2.cosmo.validator.JoinValidator;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
