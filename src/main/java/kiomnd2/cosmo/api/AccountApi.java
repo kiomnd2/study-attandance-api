@@ -40,7 +40,7 @@ public class AccountApi {
         // 에러 시,, 처리
 
         AccountDto accountDto = accountService.processNewAccount(request);
-        //String token = jwtTokenProvider.createToken(accountDto.getId());
+        String token = jwtTokenProvider.createToken(accountDto.getId());
 
         return Response.builder()
                 .token("")

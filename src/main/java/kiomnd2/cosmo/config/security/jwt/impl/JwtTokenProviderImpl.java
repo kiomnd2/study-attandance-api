@@ -8,6 +8,7 @@ import kiomnd2.cosmo.config.security.jwt.Token;
 import kiomnd2.cosmo.config.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -24,7 +25,7 @@ public class JwtTokenProviderImpl implements JwtTokenProvider<String> {
     @Override
     public String createToken(String subject) {
         Claims claims = Jwts.claims();
-        claims.put("subject", subject);
+        claims.setSubject(subject);
 
         Instant nowInstant = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant();
 
@@ -36,6 +37,7 @@ public class JwtTokenProviderImpl implements JwtTokenProvider<String> {
                 .compact();
     }
 
+    @Override
     public Token getTokenInfo(String token) {
         Claims body = getClaims(token);
         return new Token(body.getSubject(), body.getIssuedAt(), body.getExpiration());

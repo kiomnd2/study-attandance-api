@@ -1,13 +1,13 @@
 package kiomnd2.cosmo.config.security.jwt;
 
 
-import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Date;
 
 @RequiredArgsConstructor
-@AllArgsConstructor
+@Getter
 public class Token {
 
     private final String subject;
