@@ -18,14 +18,14 @@ import java.util.Set;
 
 @RequiredArgsConstructor
 @Component
-public class JwtTokenProviderImpl implements JwtTokenProvider<String> {
+public class JwtTokenProviderImpl implements JwtTokenProvider<Long> {
 
     private final JwtProperties jwtProperties;
 
     @Override
-    public String createToken(String subject) {
+    public String createToken(Long subject) {
         Claims claims = Jwts.claims();
-        claims.setSubject(subject);
+        claims.setSubject(Long.toString(subject));
 
         Instant nowInstant = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant();
 
