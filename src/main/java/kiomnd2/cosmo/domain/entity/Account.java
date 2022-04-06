@@ -32,18 +32,6 @@ public class Account {
 
     private LocalDateTime joinAt;
 
-    private String bio;
-
-    private String url;
-
-    private String occupation;
-
-    private String location;
-
-    @Lob
-    @Basic(fetch = FetchType.EAGER)
-    private String profileImage;
-
     private boolean alarmStudyCreatedByEmail;
 
     private boolean alarmStudyEnrollmentResultByEmail;
@@ -62,13 +50,9 @@ public class Account {
                 .id(this.id)
                 .email(this.email)
                 .nickname(this.nickname)
-                .bio(this.bio)
                 .emailCheckToken(this.emailCheckToken)
                 .emailVerified(this.emailVerified)
                 .joinAt(this.joinAt)
-                .location(this.location)
-                .occupation(this.occupation)
-                .url(this.url)
                 .alarmStudyCreatedByEmail(this.alarmStudyCreatedByEmail)
                 .alarmStudyEnrollmentResultByEmail(this.alarmStudyEnrollmentResultByEmail)
                 .alarmStudyUpdatedByEmail(this.alarmStudyUpdatedByEmail)

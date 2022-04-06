@@ -27,7 +27,7 @@ public class AccountApi {
 
     private final AccountService accountService;
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider<Long> jwtTokenProvider;
 
     @InitBinder("request")
     public void initBinder(WebDataBinder webDataBinder) {
@@ -43,17 +43,14 @@ public class AccountApi {
         String token = jwtTokenProvider.createToken(accountDto.getId());
 
         return Response.builder()
-                .token("")
+                .token(token)
                 .account(Response.Account.builder()
                         .id(accountDto.getId())
+                        .nickname(accountDto.getNickname())
                         .email(accountDto.getEmail())
                         .joinAt(accountDto.getJoinAt())
-                        .bio(accountDto.getBio())
                         .emailVerified(accountDto.isEmailVerified())
                         .emailCheckToken(accountDto.getEmailCheckToken())
-                        .occupation(accountDto.getOccupation())
-                        .url(accountDto.getUrl())
-                        .location(accountDto.getLocation())
                         .alarmStudyCreated(accountDto.isAlarmStudyCreatedByEmail())
                         .alarmStudyEnrollmentResult(accountDto.isAlarmStudyEnrollmentResultByEmail())
                         .alarmStudyUpdatedByEmail(accountDto.isAlarmStudyUpdatedByEmail())
@@ -104,7 +101,7 @@ public class AccountApi {
         @ToString
         @AllArgsConstructor
         @Builder
-        private static class Account {
+        public static class Account {
 
             private Long id;
 

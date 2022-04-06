@@ -28,14 +28,6 @@ public class AccountDto {
 
     private LocalDateTime joinAt;
 
-    private String bio;
-
-    private String url;
-
-    private String occupation;
-
-    private String location;
-
     private boolean alarmStudyCreatedByEmail;
 
     private boolean alarmStudyEnrollmentResultByEmail;
