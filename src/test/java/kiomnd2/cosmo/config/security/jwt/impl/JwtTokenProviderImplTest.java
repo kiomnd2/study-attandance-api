@@ -15,14 +15,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class JwtTokenProviderImplTest {
 
     @Autowired
-    private JwtTokenProvider<String> jwtTokenProvider;
+    private JwtTokenProvider<Long> jwtTokenProvider;
 
     @Test
     void createTokenTest() throws Exception {
-        final String subject = "test11";
+        final long subject = 1231L;
         String token = jwtTokenProvider.createToken(subject);
 
-        assertThat(jwtTokenProvider.getTokenInfo(token).getSubject()).isEqualTo(subject);
+        assertThat(jwtTokenProvider.getTokenInfo(token).getSubject()).isEqualTo(Long.toString(subject));
     }
 
 }
