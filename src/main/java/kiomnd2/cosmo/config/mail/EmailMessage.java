@@ -1,16 +1,14 @@
 package kiomnd2.cosmo.config.mail;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Getter
 @Builder
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class EmailMessage {
     private String to;
 
     private String subject;
 
-    private String message ;
+    private String message;
 }

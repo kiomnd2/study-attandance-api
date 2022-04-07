@@ -8,6 +8,4 @@ import java.util.Optional;
 public interface AccountService {
 
     AccountDto processNewAccount(AccountApi.Request request);
-
-
 }

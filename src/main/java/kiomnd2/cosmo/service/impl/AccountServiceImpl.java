@@ -9,16 +9,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
 
     private final JavaMailSender javaMailSender;
 
+    @Transactional(readOnly = false)
     @Override
     public AccountDto processNewAccount(AccountApi.Request request) {
         Account account = Account.builder()
