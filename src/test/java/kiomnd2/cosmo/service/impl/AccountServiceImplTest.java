@@ -12,8 +12,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @AutoConfigureMockMvc
 class AccountServiceImplTest {
@@ -30,7 +28,7 @@ class AccountServiceImplTest {
         String nickname = "test";
         String password = "test11";
         String email = "kiomnd2@naver.com";
-        AccountApi.Request request = AccountApi.Request.builder()
+        AccountApi.JoinRequest request = AccountApi.JoinRequest.builder()
                 .nickname(nickname).password(password).email(email).build();
 
         AccountDto accountDto = accountService.processNewAccount(request);

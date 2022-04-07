@@ -3,7 +3,6 @@ package kiomnd2.cosmo.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kiomnd2.cosmo.config.security.jwt.JwtTokenProvider;
 import kiomnd2.cosmo.config.security.jwt.Token;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,7 @@ class AccountApiTest {
         final String password = "qwer1234!@";
         final String email = "test@email.com";
 
-        AccountApi.Request account = AccountApi.Request.builder()
+        AccountApi.JoinRequest account = AccountApi.JoinRequest.builder()
                 .nickname(nickName)
                 .password(password)
                 .email(email)
@@ -49,7 +48,7 @@ class AccountApiTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
-        AccountApi.Response response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), AccountApi.Response.class);
+        AccountApi.JoinResponse response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), AccountApi.JoinResponse.class);
         Token tokenInfo = tokenProvider.getTokenInfo(response.getToken());
         assertThat(response.getAccount().getId().toString()).isEqualTo(tokenInfo.getSubject());
         assertThat(response.getAccount().getEmail()).isEqualTo(email);
@@ -63,7 +62,7 @@ class AccountApiTest {
         final String password = "qwer1234!@";
         final String email = "testemail.com"; // 잘못된 이메일
 
-        AccountApi.Request account = AccountApi.Request.builder()
+        AccountApi.JoinRequest account = AccountApi.JoinRequest.builder()
                 .nickname(nickName)
                 .password(password)
                 .email(email)

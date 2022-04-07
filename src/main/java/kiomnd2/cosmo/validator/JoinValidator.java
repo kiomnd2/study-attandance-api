@@ -15,12 +15,12 @@ public class JoinValidator implements Validator {
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return clazz.isAssignableFrom(AccountApi.Request.class);
+        return clazz.isAssignableFrom(AccountApi.JoinRequest.class);
     }
 
     @Override
     public void validate(Object target, Errors errors) {
-        AccountApi.Request request = (AccountApi.Request) target;
+        AccountApi.JoinRequest request = (AccountApi.JoinRequest) target;
         if (accountRepository.existsByEmail(request.getEmail())) {
             errors.rejectValue("email", "invalid.email", new Object[]{request.getEmail()}, "이미 존재하는 이메일 입니다");
         }

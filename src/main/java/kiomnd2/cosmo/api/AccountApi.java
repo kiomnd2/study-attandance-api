@@ -35,16 +35,15 @@ public class AccountApi {
     }
 
     @PostMapping("/api/v1/join")
-    public Response join(@RequestBody @Valid Request request) {
+    public JoinResponse join(@RequestBody @Valid AccountApi.JoinRequest request) {
 
         // 에러 시,, 처리
-
         AccountDto accountDto = accountService.processNewAccount(request);
         String token = jwtTokenProvider.createToken(accountDto.getId());
 
-        return Response.builder()
+        return JoinResponse.builder()
                 .token(token)
-                .account(Response.Account.builder()
+                .account(JoinResponse.Account.builder()
                         .id(accountDto.getId())
                         .nickname(accountDto.getNickname())
                         .email(accountDto.getEmail())
@@ -63,7 +62,7 @@ public class AccountApi {
     @ToString
     @Builder
     @AllArgsConstructor
-    public static class Request {
+    public static class JoinRequest {
 
         @NotBlank(message = "해당 값은 필수 입니다")
         @Length(min = 3, max = 20, message = "적절하지 않은 길이입니다")
@@ -90,11 +89,11 @@ public class AccountApi {
     @ToString
     @Builder
     @AllArgsConstructor
-    public static class Response {
+    public static class JoinResponse {
 
         private String token;
 
-        private Response.Account account;
+        private JoinResponse.Account account;
 
 
         @Getter

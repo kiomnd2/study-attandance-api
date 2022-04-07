@@ -23,7 +23,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional(readOnly = false)
     @Override
-    public AccountDto processNewAccount(AccountApi.Request request) {
+    public AccountDto processNewAccount(AccountApi.JoinRequest request) {
         Account account = Account.builder()
                 .nickname(request.getNickname())
                 .email(request.getEmail())
