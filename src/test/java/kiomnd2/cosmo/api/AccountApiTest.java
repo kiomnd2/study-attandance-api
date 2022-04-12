@@ -3,6 +3,8 @@ package kiomnd2.cosmo.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kiomnd2.cosmo.config.security.jwt.JwtTokenProvider;
 import kiomnd2.cosmo.config.security.jwt.Token;
+import kiomnd2.cosmo.dto.AccountDto;
+import kiomnd2.cosmo.service.AccountService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,14 +13,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @AutoConfigureMockMvc
 @SpringBootTest
+@Transactional
 class AccountApiTest {
 
     @Autowired
@@ -29,6 +33,9 @@ class AccountApiTest {
 
     @Autowired
     JwtTokenProvider<Long> tokenProvider;
+
+    @Autowired
+    AccountService accountService;
 
     @DisplayName("회원 가입 API")
     @Test
@@ -72,6 +79,31 @@ class AccountApiTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
+
+    }
+
+    @DisplayName("회원 가입 과 이메일 체크 API TEST")
+    @Test
+    void joinAccountAndCheckEmail() throws Exception {
+        final String nickName = "홍길동";
+        final String password = "qwer1234!@";
+        final String email = "test@email.com";
+
+        AccountApi.JoinRequest request = AccountApi.JoinRequest.builder()
+                .nickname(nickName).password(password).email(email).build();
+
+        AccountDto accountDto = accountService.processNewAccount(request);
+
+        final String token = accountDto.getEmailCheckToken();
+        final String cEmail = accountDto.getEmail();
+
+        mockMvc.perform(get("/check-email-token")
+                .param("token", token)
+                .param("email", cEmail))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeDoesNotExist("error"))
+                .andExpect(model().attributeExists("nickname"))
+                .andExpect(view().name("account/checked-Email"));
 
     }
 }

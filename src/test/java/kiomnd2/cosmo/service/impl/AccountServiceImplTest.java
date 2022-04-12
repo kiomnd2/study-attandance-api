@@ -41,4 +41,22 @@ class AccountServiceImplTest {
         Assertions.assertThat(byId.getPassword()).isEqualTo(password);
         Assertions.assertThat(byId.getEmailCheckToken()).isNotBlank();
     }
+
+    @Transactional
+    @Test
+    void checkEmailToken() throws Exception {
+        String nickname = "test";
+        String password = "test11";
+        String email = "kiomnd2@naver.com";
+        AccountApi.JoinRequest request = AccountApi.JoinRequest.builder()
+                .nickname(nickname).password(password).email(email).build();
+
+        AccountDto accountDto = accountService.processNewAccount(request);
+
+        final String emailCheckToken = accountDto.getEmailCheckToken();
+        System.out.println("emailCheckToken = " + emailCheckToken);
+
+
+        AccountDto accountDto1 = accountService.checkEmailToken(emailCheckToken, email);
+    }
 }
