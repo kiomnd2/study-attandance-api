@@ -46,6 +46,10 @@ public class Account {
         this.emailCheckTokenGeneratedAt = LocalDateTime.now();
     }
 
+    public boolean checkToken(String token) {
+        return token.equals(this.emailCheckToken);
+    }
+
     public AccountDto toDto() {
         return AccountDto.builder()
                 .id(this.id)

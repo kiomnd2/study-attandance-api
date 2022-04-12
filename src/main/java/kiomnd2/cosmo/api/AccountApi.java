@@ -7,10 +7,7 @@ import kiomnd2.cosmo.validator.JoinValidator;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -57,6 +54,10 @@ public class AccountApi {
                 .build();
     }
 
+    @GetMapping("/check-email-token")
+    public Response<AccountDto> checkEmailToken(String token, String email) {
+        return Response.success(accountService.checkEmailToken(token, email));
+    }
 
     @Getter
     @ToString
