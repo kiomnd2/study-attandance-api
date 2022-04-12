@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head >
+</head>
+<body class="bg-light">
+
+
+<div class="py-5 text-center" th:if="${error}">
+    <p class="lead">스터디올래 이메일 확인</p>
+    <div class="alert alert-danger" role="alert">
+        <span th:text="${errorMessage}"></span>
+    </div>
+</div>
+
+<div class="py-5 text-center" th:if="${error}">
+    <p class="lead">스터디올래 이메일 확인</p>
+    <div class="alert alert-danger" role="alert">
+        <span th:text="${errorMessage}"></span>
+    </div>
+</div>
+
+
+<div class="py-5 text-center" th:if="${error == null}">
+    <p class="lead">스터디올래 이메일 확인</p>
+    <h2>
+        <span th:text="${nickname}"></span>님 가입을 축하합니다.
+    </h2>
+    <small class="text-info">이제부터 가입할 때 사용한 이메일 또는 닉네임과패스워드로 로그인 할 수 있습니다</small>
+</div>
+</body>
+</html>
