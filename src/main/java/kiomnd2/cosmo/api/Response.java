@@ -12,4 +12,8 @@ public class Response<T> {
 
     private final T body;
 
+    public static <T> Response<T> success(T body) {
+        return new Response<T>("0000", body);
+    }
+
 }
