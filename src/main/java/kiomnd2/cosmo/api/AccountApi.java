@@ -54,11 +54,7 @@ public class AccountApi {
                 .build();
     }
 
-    @GetMapping("/check-email-token")
-    public Response<AccountDto> checkEmailToken(String token, String email) {
-        return Response.success(accountService.checkEmailToken(token, email));
-    }
-
+    
     @Getter
     @ToString
     @Builder

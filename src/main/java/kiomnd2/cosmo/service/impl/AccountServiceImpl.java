@@ -52,18 +52,20 @@ public class AccountServiceImpl implements AccountService {
                 .builder()
                 .to(newAccount.getEmail())
                 .subject("코스모, 회원가입 인증")
-                .message("/check-email-token?token=" + newAccount.getEmailCheckToken() +
+                .message("/api/v1/check/email?token=" + newAccount.getEmailCheckToken() +
                                         "&email=" + newAccount.getEmail()).build();
         emailService.sendEmail(mailMessage);
     }
 
+    @Transactional(readOnly = false)
     @Override
     public AccountDto checkEmailToken(String token, String email) {
-
         Account account = accountRepository.findByEmail(email).orElseThrow(NotFoundEmailException::new);
         if (!account.checkToken(token)) {
             throw new InvalidTokenException();
         }
+        account.completeJoin();
+
         return account.toDto();
     }
 }

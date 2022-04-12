@@ -50,6 +50,11 @@ public class Account {
         return token.equals(this.emailCheckToken);
     }
 
+    public void completeJoin() {
+        this.joinAt = LocalDateTime.now();
+        this.emailVerified = true;
+    }
+
     public AccountDto toDto() {
         return AccountDto.builder()
                 .id(this.id)
