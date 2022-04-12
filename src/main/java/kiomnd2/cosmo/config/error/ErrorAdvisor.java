@@ -1,6 +1,7 @@
 package kiomnd2.cosmo.config.error;
 
 
+import kiomnd2.cosmo.exception.NotFoundEmailException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
