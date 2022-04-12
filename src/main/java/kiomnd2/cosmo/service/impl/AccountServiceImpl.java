@@ -1,6 +1,8 @@
 package kiomnd2.cosmo.service.impl;
 
 import kiomnd2.cosmo.api.AccountApi;
+import kiomnd2.cosmo.config.mail.EmailMessage;
+import kiomnd2.cosmo.config.mail.EmailService;
 import kiomnd2.cosmo.domain.entity.Account;
 import kiomnd2.cosmo.dto.AccountDto;
 import kiomnd2.cosmo.repository.AccountRepository;
@@ -19,7 +21,7 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
 
-    private final JavaMailSender javaMailSender;
+    private final EmailService emailService;
 
     @Transactional(readOnly = false)
     @Override
@@ -41,12 +43,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     private void sendCheckMail(Account newAccount) {
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
+        EmailMessage mailMessage = EmailMessage
+                .builder()
+                .to(newAccount.getEmail())
+                .subject("코스모, 회원가입 인증")
+                .message("/check-email-token?token=" + newAccount.getEmailCheckToken() +
+                                        "&email=" + newAccount.getEmail()).build();
         newAccount.generateEmailCheckToken();
-        mailMessage.setTo(newAccount.getEmail());
-        mailMessage.setSubject("코스모, 회원 가입 인증");
-        mailMessage.setText("/check-email-token?token=" + newAccount.getEmailCheckToken() +
-                "&email=" + newAccount.getEmail());
-        javaMailSender.send(mailMessage);
+        emailService.sendEmail(mailMessage);
     }
 }

@@ -4,6 +4,7 @@ import kiomnd2.cosmo.config.mail.EmailMessage;
 import kiomnd2.cosmo.config.mail.EmailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import javax.mail.internet.MimeMessage;
 
 @Slf4j
 @Component
+@Profile("dev")
 @RequiredArgsConstructor
 public class HtmlEmailService implements EmailService {
 
