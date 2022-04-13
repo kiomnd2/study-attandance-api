@@ -32,13 +32,13 @@ public class AccountApi {
     }
 
     @PostMapping("/api/v1/join")
-    public JoinResponse join(@RequestBody @Valid AccountApi.JoinRequest request) {
+    public Response<JoinResponse> join(@RequestBody @Valid AccountApi.JoinRequest request) {
 
         // 에러 시,, 처리
         AccountDto accountDto = accountService.processNewAccount(request);
         String token = jwtTokenProvider.createToken(accountDto.getId());
 
-        return JoinResponse.builder()
+        return Response.success(JoinResponse.builder()
                 .token(token)
                 .account(JoinResponse.Account.builder()
                         .id(accountDto.getId())
@@ -51,7 +51,7 @@ public class AccountApi {
                         .alarmStudyEnrollmentResult(accountDto.isAlarmStudyEnrollmentResultByEmail())
                         .alarmStudyUpdatedByEmail(accountDto.isAlarmStudyUpdatedByEmail())
                         .build())
-                .build();
+                .build());
     }
 
     

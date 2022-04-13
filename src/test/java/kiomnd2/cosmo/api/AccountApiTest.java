@@ -1,5 +1,6 @@
 package kiomnd2.cosmo.api;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import kiomnd2.cosmo.config.security.jwt.JwtTokenProvider;
 import kiomnd2.cosmo.config.security.jwt.Token;
@@ -14,6 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.lang.reflect.Type;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -55,11 +58,11 @@ class AccountApiTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
-        AccountApi.JoinResponse response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), AccountApi.JoinResponse.class);
-        Token tokenInfo = tokenProvider.getTokenInfo(response.getToken());
-        assertThat(response.getAccount().getId().toString()).isEqualTo(tokenInfo.getSubject());
-        assertThat(response.getAccount().getEmail()).isEqualTo(email);
-        assertThat(response.getAccount().getNickname()).isEqualTo(nickName);
+        Response<AccountApi.JoinResponse> response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<Response<AccountApi.JoinResponse>>() {});
+        Token tokenInfo = tokenProvider.getTokenInfo(response.getBody().getToken());
+        assertThat(response.getBody().getAccount().getId().toString()).isEqualTo(tokenInfo.getSubject());
+        assertThat(response.getBody().getAccount().getEmail()).isEqualTo(email);
+        assertThat(response.getBody().getAccount().getNickname()).isEqualTo(nickName);
     }
 
     @DisplayName("회원 가입 API - 입력값 오류")
