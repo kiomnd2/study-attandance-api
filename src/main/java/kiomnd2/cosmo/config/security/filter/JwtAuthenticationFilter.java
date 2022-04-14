@@ -1,7 +1,5 @@
 package kiomnd2.cosmo.config.security.filter;
 
-import kiomnd2.cosmo.config.security.JwtTokenRole;
-import kiomnd2.cosmo.config.security.PrincipalProvider;
 import kiomnd2.cosmo.config.security.jwt.JwtTokenProvider;
 import kiomnd2.cosmo.config.security.jwt.Token;
 import kiomnd2.cosmo.exception.InvalidTokenException;
@@ -10,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -20,8 +17,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @Component
