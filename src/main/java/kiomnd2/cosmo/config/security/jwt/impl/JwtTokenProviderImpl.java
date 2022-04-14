@@ -1,6 +1,7 @@
 package kiomnd2.cosmo.config.security.jwt.impl;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import kiomnd2.cosmo.config.properties.JwtProperties;
@@ -41,6 +42,13 @@ public class JwtTokenProviderImpl implements JwtTokenProvider<Long> {
     public Token getTokenInfo(String token) {
         Claims body = getClaims(token);
         return new Token(body.getSubject(), body.getIssuedAt(), body.getExpiration());
+    }
+
+    @Override
+    public boolean validateToken(String token) {
+        if (token == null) return false;
+        Jws<Claims> claimsJws = Jwts.parser().setSigningKey(jwtProperties.getSecretKey()).parseClaimsJws(token);
+        return claimsJws.getBody().getExpiration().before(new Date());
     }
 
     /**
