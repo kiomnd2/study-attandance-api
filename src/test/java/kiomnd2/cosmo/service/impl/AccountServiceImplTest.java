@@ -29,7 +29,7 @@ class AccountServiceImplTest {
         String password = "test11";
         String email = "kiomnd2@naver.com";
         AccountApi.JoinRequest request = AccountApi.JoinRequest.builder()
-                .nickname(nickname).password(password).email(email).build();
+                .nickname(nickname).email(email).build();
 
         AccountDto accountDto = accountService.processNewAccount(request);
         Long id = accountDto.getId();
@@ -46,10 +46,9 @@ class AccountServiceImplTest {
     @Test
     void checkEmailToken() throws Exception {
         String nickname = "test";
-        String password = "test11";
         String email = "kiomnd2@naver.com";
         AccountApi.JoinRequest request = AccountApi.JoinRequest.builder()
-                .nickname(nickname).password(password).email(email).build();
+                .nickname(nickname).email(email).build();
 
         AccountDto accountDto = accountService.processNewAccount(request);
 

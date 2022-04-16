@@ -54,6 +54,7 @@ public class AccountApi {
                 .build());
     }
 
+
     
     @Getter
     @ToString
@@ -69,10 +70,6 @@ public class AccountApi {
         @Email(message = "이메일 형식에 맞춰주세요")
         @NotBlank(message = "해당 값을 필수 입니다")
         private String email;
-
-        @NotBlank(message = "해당 값은 필수 입니다")
-        @Length(min = 8, max = 20, message = "적절하지 않은 길이입니다")
-        private String password;
 
         private boolean alarmStudyCreated;
 

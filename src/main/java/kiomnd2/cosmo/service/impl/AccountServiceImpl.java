@@ -33,7 +33,6 @@ public class AccountServiceImpl implements AccountService {
         Account account = Account.builder()
                 .nickname(request.getNickname())
                 .email(request.getEmail())
-                .password(request.getPassword()) // TODO 암호화
                 .alarmStudyUpdatedByEmail(request.isAlarmStudyCreated())
                 .alarmStudyEnrollmentResultByEmail(request.isAlarmStudyEnrollmentResult())
                 .alarmStudyEnrollmentResultByEmail(request.isAlarmStudyUpdatedByEmail())

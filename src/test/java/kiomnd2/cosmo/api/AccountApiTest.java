@@ -44,12 +44,10 @@ class AccountApiTest {
     @Test
     void joinAccountApi() throws Exception {
         final String nickName = "홍길동";
-        final String password = "qwer1234!@";
         final String email = "test@email.com";
 
         AccountApi.JoinRequest account = AccountApi.JoinRequest.builder()
                 .nickname(nickName)
-                .password(password)
                 .email(email)
                 .build();
         MvcResult mvcResult = mockMvc.perform(post("/api/v1/join")
@@ -69,12 +67,10 @@ class AccountApiTest {
     @Test
     void joinAccount_with_wrong_input() throws Exception{
         final String nickName = "홍길동";
-        final String password = "qwer1234!@";
         final String email = "testemail.com"; // 잘못된 이메일
 
         AccountApi.JoinRequest account = AccountApi.JoinRequest.builder()
                 .nickname(nickName)
-                .password(password)
                 .email(email)
                 .build();
         mockMvc.perform(post("/api/v1/join")
@@ -89,11 +85,10 @@ class AccountApiTest {
     @Test
     void joinAccountAndCheckEmail() throws Exception {
         final String nickName = "홍길동";
-        final String password = "qwer1234!@";
         final String email = "test@email.com";
 
         AccountApi.JoinRequest request = AccountApi.JoinRequest.builder()
-                .nickname(nickName).password(password).email(email).build();
+                .nickname(nickName).email(email).build();
 
         AccountDto accountDto = accountService.processNewAccount(request);
 
