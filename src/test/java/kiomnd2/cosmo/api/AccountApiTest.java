@@ -71,7 +71,7 @@ class AccountApiTest {
                 .nickname(nickName)
                 .email(email)
                 .build();
-        mockMvc.perform(post("/api/v1/loggged-in")
+        mockMvc.perform(post("/api/v1/logged-in")
                         .content(objectMapper.writeValueAsBytes(account))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
