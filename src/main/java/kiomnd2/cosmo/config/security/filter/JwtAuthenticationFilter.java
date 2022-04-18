@@ -19,13 +19,20 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 @Slf4j
-@Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends GenericFilterBean {
 
     private final JwtTokenProvider<Long> jwtTokenProvider;
 
 
+    /**
+     * 받은 토큰을 인증합니다.
+     * @param request
+     * @param response
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         String token = getToken(request);
@@ -35,7 +42,6 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             log.debug("invalid token");
             throw new InvalidTokenException();
         }
-
 
         try {
             Token tokenInfo = jwtTokenProvider.getTokenInfo(token);

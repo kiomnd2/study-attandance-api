@@ -16,8 +16,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Type;
-
 import static org.assertj.core.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -50,7 +48,7 @@ class AccountApiTest {
                 .nickname(nickName)
                 .email(email)
                 .build();
-        MvcResult mvcResult = mockMvc.perform(post("/api/v1/join")
+        MvcResult mvcResult = mockMvc.perform(post("/api/v1/logged-in")
                         .content(objectMapper.writeValueAsBytes(account))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -73,7 +71,7 @@ class AccountApiTest {
                 .nickname(nickName)
                 .email(email)
                 .build();
-        mockMvc.perform(post("/api/v1/join")
+        mockMvc.perform(post("/api/v1/loggged-in")
                         .content(objectMapper.writeValueAsBytes(account))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -90,7 +88,7 @@ class AccountApiTest {
         AccountApi.JoinRequest request = AccountApi.JoinRequest.builder()
                 .nickname(nickName).email(email).build();
 
-        AccountDto accountDto = accountService.processNewAccount(request);
+        AccountDto accountDto = accountService.getAccount(request);
 
         final String token = accountDto.getEmailCheckToken();
         final String cEmail = accountDto.getEmail();

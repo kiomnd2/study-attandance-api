@@ -31,7 +31,7 @@ class AccountServiceImplTest {
         AccountApi.JoinRequest request = AccountApi.JoinRequest.builder()
                 .nickname(nickname).email(email).build();
 
-        AccountDto accountDto = accountService.processNewAccount(request);
+        AccountDto accountDto = accountService.getAccount(request);
         Long id = accountDto.getId();
 
         Account byId = accountRepository.getById(id);
@@ -50,7 +50,7 @@ class AccountServiceImplTest {
         AccountApi.JoinRequest request = AccountApi.JoinRequest.builder()
                 .nickname(nickname).email(email).build();
 
-        AccountDto accountDto = accountService.processNewAccount(request);
+        AccountDto accountDto = accountService.getAccount(request);
 
         final String emailCheckToken = accountDto.getEmailCheckToken();
 

@@ -31,11 +31,11 @@ public class AccountApi {
         webDataBinder.addValidators(joinValidator);
     }
 
-    @PostMapping("/api/v1/join")
-    public Response<JoinResponse> join(@RequestBody @Valid AccountApi.JoinRequest request) {
+    @PostMapping("/api/v1/logged-in")
+    public Response<JoinResponse> loggedIn(@RequestBody @Valid AccountApi.JoinRequest request) {
 
         // 에러 시,, 처리
-        AccountDto accountDto = accountService.processNewAccount(request);
+        AccountDto accountDto = accountService.getAccount(request);
         String token = jwtTokenProvider.createToken(accountDto.getId());
 
         return Response.success(JoinResponse.builder()
@@ -61,6 +61,7 @@ public class AccountApi {
     @Builder
     @AllArgsConstructor
     public static class JoinRequest {
+
 
         @NotBlank(message = "해당 값은 필수 입니다")
         @Length(min = 3, max = 20, message = "적절하지 않은 길이입니다")
