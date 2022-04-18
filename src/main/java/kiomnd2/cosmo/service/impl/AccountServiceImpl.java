@@ -41,10 +41,10 @@ public class AccountServiceImpl implements AccountService {
                     .alarmStudyEnrollmentResultByEmail(request.isAlarmStudyEnrollmentResult())
                     .alarmStudyEnrollmentResultByEmail(request.isAlarmStudyUpdatedByEmail())
                     .build();
+            sendCheckMail(account);
             return accountRepository.save(account);
         });
-        
-        sendCheckMail(newAccount);
+
 
         return newAccount.toDto();
     }
