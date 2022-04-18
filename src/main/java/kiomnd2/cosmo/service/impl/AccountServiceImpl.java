@@ -31,16 +31,19 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountDto getAccount(AccountApi.JoinRequest request) {
 
-        Account account = Account.builder()
-                .nickname(request.getNickname())
-                .email(request.getEmail())
-                .alarmStudyUpdatedByEmail(request.isAlarmStudyCreated())
-                .alarmStudyEnrollmentResultByEmail(request.isAlarmStudyEnrollmentResult())
-                .alarmStudyEnrollmentResultByEmail(request.isAlarmStudyUpdatedByEmail())
-                .build();
-
-        Account newAccount = accountRepository.save(account);
-
+        // 아이디 찾아서 없으면 등록
+        Account newAccount = accountRepository.findById(request.getId()).orElseGet(() -> {
+            Account account = Account.builder()
+                    .id(request.getId())
+                    .nickname(request.getNickname())
+                    .email(request.getEmail())
+                    .alarmStudyUpdatedByEmail(request.isAlarmStudyCreated())
+                    .alarmStudyEnrollmentResultByEmail(request.isAlarmStudyEnrollmentResult())
+                    .alarmStudyEnrollmentResultByEmail(request.isAlarmStudyUpdatedByEmail())
+                    .build();
+            return accountRepository.save(account);
+        });
+        
         sendCheckMail(newAccount);
 
         return newAccount.toDto();

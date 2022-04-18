@@ -62,6 +62,7 @@ public class AccountApi {
     @AllArgsConstructor
     public static class JoinRequest {
 
+        private Long id;
 
         @NotBlank(message = "해당 값은 필수 입니다")
         @Length(min = 3, max = 20, message = "적절하지 않은 길이입니다")

@@ -41,10 +41,12 @@ class AccountApiTest {
     @DisplayName("회원 가입 API")
     @Test
     void joinAccountApi() throws Exception {
+        final Long id = 123L;
         final String nickName = "홍길동";
         final String email = "test@email.com";
 
         AccountApi.JoinRequest account = AccountApi.JoinRequest.builder()
+                .id(id)
                 .nickname(nickName)
                 .email(email)
                 .build();
@@ -82,10 +84,12 @@ class AccountApiTest {
     @DisplayName("회원 가입 과 이메일 체크 API TEST")
     @Test
     void joinAccountAndCheckEmail() throws Exception {
+        final Long id = 123L;
         final String nickName = "홍길동";
         final String email = "test@email.com";
 
         AccountApi.JoinRequest request = AccountApi.JoinRequest.builder()
+                .id(id)
                 .nickname(nickName).email(email).build();
 
         AccountDto accountDto = accountService.getAccount(request);

@@ -26,9 +26,9 @@ class AccountServiceImplTest {
     @Test
     void createAccountTest() throws Exception {
         String nickname = "test";
-        String password = "test11";
         String email = "kiomnd2@naver.com";
         AccountApi.JoinRequest request = AccountApi.JoinRequest.builder()
+                .id(123L)
                 .nickname(nickname).email(email).build();
 
         AccountDto accountDto = accountService.getAccount(request);
@@ -38,7 +38,6 @@ class AccountServiceImplTest {
 
         Assertions.assertThat(byId.getNickname()).isEqualTo(nickname);
         Assertions.assertThat(byId.getEmail()).isEqualTo(email);
-        Assertions.assertThat(byId.getPassword()).isEqualTo(password);
         Assertions.assertThat(byId.getEmailCheckToken()).isNotBlank();
     }
 
@@ -48,6 +47,7 @@ class AccountServiceImplTest {
         String nickname = "test";
         String email = "kiomnd2@naver.com";
         AccountApi.JoinRequest request = AccountApi.JoinRequest.builder()
+                .id(123L)
                 .nickname(nickname).email(email).build();
 
         AccountDto accountDto = accountService.getAccount(request);
