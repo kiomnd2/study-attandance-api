@@ -36,6 +36,8 @@ public class AccountApi {
 
         // 에러 시,, 처리
         AccountDto accountDto = accountService.getAccount(request);
+
+        // 이메일 체크
         String token = jwtTokenProvider.createToken(accountDto.getId());
 
         return Response.success(JoinResponse.builder()

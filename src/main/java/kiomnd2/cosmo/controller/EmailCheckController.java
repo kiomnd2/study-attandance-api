@@ -1,6 +1,5 @@
 package kiomnd2.cosmo.controller;
 
-import kiomnd2.cosmo.api.Response;
 import kiomnd2.cosmo.dto.AccountDto;
 import kiomnd2.cosmo.service.AccountService;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +16,9 @@ public class EmailCheckController {
     private final AccountService accountService;
 
     @GetMapping("/check-email-token")
-    public String checkEmailToken(String token, String email, Model model) {
-        log.debug("token = {}, email = {}", token, email);
-        AccountDto accountDto = accountService.checkEmailToken(token, email);
+    public String checkEmailToken(String token, Long id, Model model) {
+        log.debug("token = {}, id = {}", token, id);
+        AccountDto accountDto = accountService.checkToken(token, id);
         model.addAttribute("nickname", accountDto.getNickname());
         return "account/checked-Email";
     }

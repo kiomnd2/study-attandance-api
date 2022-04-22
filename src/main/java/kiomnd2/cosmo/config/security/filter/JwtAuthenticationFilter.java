@@ -4,11 +4,11 @@ import kiomnd2.cosmo.config.security.jwt.JwtTokenProvider;
 import kiomnd2.cosmo.config.security.jwt.Token;
 import kiomnd2.cosmo.exception.InvalidTokenException;
 import kiomnd2.cosmo.exception.MemberNotFoundException;
+import kiomnd2.cosmo.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -24,6 +24,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
     private final JwtTokenProvider<Long> jwtTokenProvider;
 
+    private final AccountService accountService;
 
     /**
      * 받은 토큰을 인증합니다.
@@ -38,10 +39,14 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         String token = getToken(request);
         log.debug("token = {}",token);
 
+        // 토큰 체크
         if (!jwtTokenProvider.validateToken(token)) {
             log.debug("invalid token");
             throw new InvalidTokenException();
         }
+
+
+
 
         try {
             Token tokenInfo = jwtTokenProvider.getTokenInfo(token);

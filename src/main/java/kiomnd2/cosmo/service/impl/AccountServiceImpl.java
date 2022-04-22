@@ -62,8 +62,8 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional(readOnly = false)
     @Override
-    public AccountDto checkEmailToken(String token, String email) {
-        Account account = accountRepository.findByEmail(email).orElseThrow(NotFoundEmailException::new);
+    public AccountDto checkToken(String token, Long id) {
+        Account account = accountRepository.findById(id).orElseThrow(NotFoundEmailException::new);
         if (!account.checkToken(token)) {
             throw new InvalidTokenException();
         }

@@ -54,7 +54,7 @@ class AccountServiceImplTest {
 
         final String emailCheckToken = accountDto.getEmailCheckToken();
 
-        AccountDto accountDto1 = accountService.checkEmailToken(emailCheckToken, email);
+        AccountDto accountDto1 = accountService.checkToken(emailCheckToken, accountDto.getId());
         Assertions.assertThat(accountDto1.getEmailCheckToken()).isEqualTo(accountDto.getEmailCheckToken());
         Assertions.assertThat(accountDto1.isEmailVerified()).isTrue();
         Assertions.assertThat(accountDto1.getJoinAt()).isNotNull();
