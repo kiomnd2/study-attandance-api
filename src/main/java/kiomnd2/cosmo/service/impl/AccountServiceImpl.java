@@ -56,7 +56,7 @@ public class AccountServiceImpl implements AccountService {
                 .to(newAccount.getEmail())
                 .subject("코스모, 회원가입 인증")
                 .message("/api/v1/check/email?token=" + newAccount.getEmailCheckToken() +
-                                        "&email=" + newAccount.getEmail()).build();
+                                        "&id=" + newAccount.getId()).build();
         emailService.sendEmail(mailMessage);
     }
 
