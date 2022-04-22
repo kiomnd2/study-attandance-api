@@ -95,11 +95,11 @@ class AccountApiTest {
         AccountDto accountDto = accountService.getAccount(request);
 
         final String token = accountDto.getEmailCheckToken();
-        final String cEmail = accountDto.getEmail();
+        final Long getId = accountDto.getId();
 
         mockMvc.perform(get("/check-email-token")
                 .param("token", token)
-                .param("email", cEmail))
+                .param("id", String.valueOf(getId)))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeDoesNotExist("error"))
                 .andExpect(model().attributeExists("nickname"))
