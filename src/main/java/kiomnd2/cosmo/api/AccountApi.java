@@ -38,11 +38,9 @@ public class AccountApi {
         // 에러 시,, 처리
         AccountDto accountDto = accountService.getAccount(request);
 
-        // 이메일 체크
         String token = jwtTokenProvider.createToken(accountDto.getId());
 
         return Response.success(JoinResponse.builder()
-                .token(token)
                 .account(JoinResponse.Account.builder()
                         .id(accountDto.getId())
                         .nickname(accountDto.getNickname())
@@ -90,10 +88,7 @@ public class AccountApi {
     @AllArgsConstructor
     public static class JoinResponse {
 
-        private String token;
-
         private JoinResponse.Account account;
-
 
         @Getter
         @ToString
@@ -112,14 +107,6 @@ public class AccountApi {
             private String emailCheckToken;
 
             private LocalDateTime joinAt;
-
-            private String bio;
-
-            private String url;
-
-            private String occupation;
-
-            private String location;
 
             private boolean alarmStudyCreated;
 
