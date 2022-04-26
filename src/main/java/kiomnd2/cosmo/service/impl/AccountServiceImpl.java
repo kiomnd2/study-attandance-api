@@ -25,7 +25,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional(readOnly = false)
     @Override
-    public AccountDto getAccount(AccountApi.JoinRequest request) {
+    public AccountDto createAccount(AccountApi.JoinRequest request) {
 
         // 아이디 찾아서 없으면 등록
         Account newAccount = accountRepository.findById(request.getId()).orElseGet(() -> {

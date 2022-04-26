@@ -24,8 +24,6 @@ public class Account {
 
     private String nickname;
 
-    private String password;
-
     private boolean emailVerified;
 
     private String emailCheckToken;
@@ -46,7 +44,7 @@ public class Account {
         this.emailCheckTokenGeneratedAt = LocalDateTime.now();
     }
 
-    public boolean checkToken(String token) {
+    public boolean isValidToken(String token) {
         return token.equals(this.emailCheckToken);
     }
 
@@ -54,6 +52,7 @@ public class Account {
         this.joinAt = LocalDateTime.now();
         this.emailVerified = true;
     }
+
 
     public AccountDto toDto() {
         return AccountDto.builder()

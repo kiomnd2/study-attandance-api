@@ -57,10 +57,6 @@ class AccountApiTest {
                 .andExpect(status().isOk())
                 .andReturn();
         Response<AccountApi.JoinResponse> response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), new TypeReference<Response<AccountApi.JoinResponse>>() {});
-        Token tokenInfo = tokenProvider.getTokenInfo(response.getBody().getToken());
-        assertThat(response.getBody().getAccount().getId().toString()).isEqualTo(tokenInfo.getSubject());
-        assertThat(response.getBody().getAccount().getEmail()).isEqualTo(email);
-        assertThat(response.getBody().getAccount().getNickname()).isEqualTo(nickName);
     }
 
     @DisplayName("회원 가입 API - 입력값 오류")
@@ -92,7 +88,7 @@ class AccountApiTest {
                 .id(id)
                 .nickname(nickName).email(email).build();
 
-        AccountDto accountDto = accountService.getAccount(request);
+        AccountDto accountDto = accountService.createAccount(request);
 
         final String token = accountDto.getEmailCheckToken();
         final Long getId = accountDto.getId();

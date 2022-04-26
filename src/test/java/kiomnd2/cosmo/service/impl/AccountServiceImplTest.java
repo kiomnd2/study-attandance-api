@@ -31,14 +31,11 @@ class AccountServiceImplTest {
                 .id(123L)
                 .nickname(nickname).email(email).build();
 
-        AccountDto accountDto = accountService.getAccount(request);
+        AccountDto accountDto = accountService.createAccount(request);
         Long id = accountDto.getId();
 
         Account byId = accountRepository.getById(id);
 
-        Assertions.assertThat(byId.getNickname()).isEqualTo(nickname);
-        Assertions.assertThat(byId.getEmail()).isEqualTo(email);
-        Assertions.assertThat(byId.getEmailCheckToken()).isNotBlank();
     }
 
     @Transactional
@@ -50,7 +47,7 @@ class AccountServiceImplTest {
                 .id(123L)
                 .nickname(nickname).email(email).build();
 
-        AccountDto accountDto = accountService.getAccount(request);
+        AccountDto accountDto = accountService.createAccount(request);
 
         final String emailCheckToken = accountDto.getEmailCheckToken();
 

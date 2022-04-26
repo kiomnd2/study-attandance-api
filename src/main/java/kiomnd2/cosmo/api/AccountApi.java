@@ -36,9 +36,9 @@ public class AccountApi {
     public Response<JoinResponse> join(@RequestBody @Valid AccountApi.JoinRequest request) {
 
         // 에러 시,, 처리
-        AccountDto accountDto = accountService.getAccount(request);
+        AccountDto accountDto = accountService.createAccount(request);
 
-        String token = jwtTokenProvider.createToken(accountDto.getId());
+//        String token = jwtTokenProvider.createToken(accountDto.getId());
 
         return Response.success(JoinResponse.builder()
                 .account(JoinResponse.Account.builder()
@@ -56,7 +56,7 @@ public class AccountApi {
     }
 
 
-    
+
     @Getter
     @ToString
     @Builder
@@ -86,6 +86,7 @@ public class AccountApi {
     @ToString
     @Builder
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class JoinResponse {
 
         private JoinResponse.Account account;

@@ -5,7 +5,7 @@ import kiomnd2.cosmo.dto.AccountDto;
 
 public interface AccountService {
 
-    AccountDto getAccount(AccountApi.JoinRequest request);
+    AccountDto createAccount(AccountApi.JoinRequest request);
 
     AccountDto checkEmailToken(String token, Long id);
 
