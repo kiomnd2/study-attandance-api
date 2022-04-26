@@ -6,7 +6,9 @@ import kiomnd2.cosmo.config.mail.EmailService;
 import kiomnd2.cosmo.domain.entity.Account;
 import kiomnd2.cosmo.dto.AccountDto;
 import kiomnd2.cosmo.exception.InvalidTokenException;
+import kiomnd2.cosmo.exception.MemberNotFoundException;
 import kiomnd2.cosmo.exception.NotFoundEmailException;
+import kiomnd2.cosmo.exception.NotMailVerifiedException;
 import kiomnd2.cosmo.repository.AccountRepository;
 import kiomnd2.cosmo.service.AccountService;
 import lombok.RequiredArgsConstructor;
@@ -68,4 +70,14 @@ public class AccountServiceImpl implements AccountService {
         return account.toDto();
     }
 
+    @Override
+    public AccountDto getAccount(AccountApi.JoinRequest request) {
+        Account account = accountRepository.findById(request.getId()).orElseThrow(MemberNotFoundException::new);
+
+        if (!account.isEmailVerified()) {
+            throw new NotMailVerifiedException();
+        }
+
+        return account.toDto();
+    }
 }

@@ -31,6 +31,26 @@ public class AccountApi {
         webDataBinder.addValidators(joinValidator);
     }
 
+    @PostMapping("/api/v1/logged-in")
+    public Response<JoinResponse> loggedIn(@RequestBody @Valid AccountApi.JoinRequest request ) {
+        AccountDto account = accountService.getAccount(request);
+        String token = jwtTokenProvider.createToken(account.getId());
+
+        return Response.success(JoinResponse.builder()
+                .token(token)
+                .account(JoinResponse.Account.builder()
+                        .id(account.getId())
+                        .nickname(account.getNickname())
+                        .email(account.getEmail())
+                        .joinAt(account.getJoinAt())
+                        .emailVerified(account.isEmailVerified())
+                        .emailCheckToken(account.getEmailCheckToken())
+                        .alarmStudyCreated(account.isAlarmStudyCreatedByEmail())
+                        .alarmStudyEnrollmentResult(account.isAlarmStudyEnrollmentResultByEmail())
+                        .alarmStudyUpdatedByEmail(account.isAlarmStudyUpdatedByEmail())
+                        .build())
+                .build());
+    }
 
     @PostMapping("/api/v1/join")
     public Response<JoinResponse> join(@RequestBody @Valid AccountApi.JoinRequest request) {
@@ -38,7 +58,6 @@ public class AccountApi {
         // 에러 시,, 처리
         AccountDto accountDto = accountService.createAccount(request);
 
-//        String token = jwtTokenProvider.createToken(accountDto.getId());
 
         return Response.success(JoinResponse.builder()
                 .account(JoinResponse.Account.builder()
@@ -62,7 +81,6 @@ public class AccountApi {
     @Builder
     @AllArgsConstructor
     public static class JoinRequest {
-
         private Long id;
 
         @NotBlank(message = "해당 값은 필수 입니다")
@@ -79,7 +97,6 @@ public class AccountApi {
         private boolean alarmStudyEnrollmentResult;
 
         private boolean alarmStudyUpdatedByEmail;
-
     }
 
     @Getter
@@ -90,6 +107,8 @@ public class AccountApi {
     public static class JoinResponse {
 
         private JoinResponse.Account account;
+
+        private String token;
 
         @Getter
         @ToString
