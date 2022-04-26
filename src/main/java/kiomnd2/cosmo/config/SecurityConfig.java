@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/api/v*/logged-in", "/check-email-token");
+        web.ignoring().antMatchers("/api/v*/join", "/api/v*/logged-in", "/check-email-token");
     }
 
     @Override

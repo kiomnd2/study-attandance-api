@@ -50,7 +50,7 @@ class AccountApiTest {
                 .nickname(nickName)
                 .email(email)
                 .build();
-        MvcResult mvcResult = mockMvc.perform(post("/api/v1/logged-in")
+        MvcResult mvcResult = mockMvc.perform(post("/api/v1/join")
                         .content(objectMapper.writeValueAsBytes(account))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -73,7 +73,7 @@ class AccountApiTest {
                 .nickname(nickName)
                 .email(email)
                 .build();
-        mockMvc.perform(post("/api/v1/logged-in")
+        mockMvc.perform(post("/api/v1/join")
                         .content(objectMapper.writeValueAsBytes(account))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())

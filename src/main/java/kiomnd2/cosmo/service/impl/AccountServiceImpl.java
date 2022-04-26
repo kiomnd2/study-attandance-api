@@ -10,12 +10,8 @@ import kiomnd2.cosmo.exception.NotFoundEmailException;
 import kiomnd2.cosmo.repository.AccountRepository;
 import kiomnd2.cosmo.service.AccountService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -64,13 +60,12 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountDto checkEmailToken(String token, Long id) {
         Account account = accountRepository.findById(id).orElseThrow(NotFoundEmailException::new);
-        if (!account.checkToken(token)) {
+        if (!account.isValidToken(token)) {
             throw new InvalidTokenException();
         }
         account.completeJoin();
 
         return account.toDto();
     }
-
 
 }

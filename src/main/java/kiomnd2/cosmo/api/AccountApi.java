@@ -31,8 +31,9 @@ public class AccountApi {
         webDataBinder.addValidators(joinValidator);
     }
 
-    @PostMapping("/api/v1/logged-in")
-    public Response<JoinResponse> loggedIn(@RequestBody @Valid AccountApi.JoinRequest request) {
+
+    @PostMapping("/api/v1/join")
+    public Response<JoinResponse> join(@RequestBody @Valid AccountApi.JoinRequest request) {
 
         // 에러 시,, 처리
         AccountDto accountDto = accountService.getAccount(request);
