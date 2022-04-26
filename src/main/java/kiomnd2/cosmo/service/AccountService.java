@@ -7,5 +7,7 @@ public interface AccountService {
 
     AccountDto getAccount(AccountApi.JoinRequest request);
 
-    AccountDto checkToken(String token, Long id);
+    AccountDto checkEmailToken(String token, Long id);
+
+
 }

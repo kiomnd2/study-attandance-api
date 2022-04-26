@@ -62,7 +62,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional(readOnly = false)
     @Override
-    public AccountDto checkToken(String token, Long id) {
+    public AccountDto checkEmailToken(String token, Long id) {
         Account account = accountRepository.findById(id).orElseThrow(NotFoundEmailException::new);
         if (!account.checkToken(token)) {
             throw new InvalidTokenException();
@@ -71,4 +71,6 @@ public class AccountServiceImpl implements AccountService {
 
         return account.toDto();
     }
+
+
 }

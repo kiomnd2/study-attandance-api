@@ -18,7 +18,7 @@ public class EmailCheckController {
     @GetMapping("/check-email-token")
     public String checkEmailToken(String token, Long id, Model model) {
         log.debug("token = {}, id = {}", token, id);
-        AccountDto accountDto = accountService.checkToken(token, id);
+        AccountDto accountDto = accountService.checkEmailToken(token, id);
         model.addAttribute("nickname", accountDto.getNickname());
         return "account/checked-Email";
     }
