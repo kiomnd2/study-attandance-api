@@ -1,7 +1,7 @@
 package kiomnd2.cosmo.config.error;
 
 
-import kiomnd2.cosmo.controller.EmailCheckController;
+import kiomnd2.cosmo.controller.EmailCheckApi;
 import kiomnd2.cosmo.exception.InvalidTokenException;
 import kiomnd2.cosmo.exception.NotFoundEmailException;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @Slf4j
-@ControllerAdvice(assignableTypes = EmailCheckController.class)
+@ControllerAdvice(assignableTypes = EmailCheckApi.class)
 public class EmailControllerAdvice {
 
     @ExceptionHandler(NotFoundEmailException.class)

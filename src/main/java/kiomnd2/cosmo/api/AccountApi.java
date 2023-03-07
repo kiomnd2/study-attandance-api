@@ -3,7 +3,6 @@ package kiomnd2.cosmo.api;
 import kiomnd2.cosmo.config.security.jwt.JwtTokenProvider;
 import kiomnd2.cosmo.dto.AccountDto;
 import kiomnd2.cosmo.service.AccountService;
-import kiomnd2.cosmo.validator.JoinValidator;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.web.bind.WebDataBinder;
@@ -20,16 +19,10 @@ import java.time.LocalDateTime;
 @RestController
 public class AccountApi {
 
-    private final JoinValidator joinValidator;
 
     private final AccountService accountService;
 
     private final JwtTokenProvider<Long> jwtTokenProvider;
-
-    @InitBinder("request")
-    public void initBinder(WebDataBinder webDataBinder) {
-        webDataBinder.addValidators(joinValidator);
-    }
 
     @PostMapping("/api/v1/logged-in")
     public Response<JoinResponse> loggedIn(@RequestBody @Valid AccountApi.JoinRequest request ) {

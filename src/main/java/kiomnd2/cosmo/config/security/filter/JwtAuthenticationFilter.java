@@ -45,9 +45,6 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             throw new InvalidTokenException();
         }
 
-
-
-
         try {
             Token tokenInfo = jwtTokenProvider.getTokenInfo(token);
             String subject = tokenInfo.getSubject();

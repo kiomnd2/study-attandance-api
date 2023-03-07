@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 @Controller
 @Slf4j
-public class EmailCheckController {
+public class EmailCheckApi {
 
     private final AccountService accountService;
 
@@ -20,6 +20,8 @@ public class EmailCheckController {
         log.debug("token = {}, id = {}", token, id);
         AccountDto accountDto = accountService.checkEmailToken(token, id);
         model.addAttribute("nickname", accountDto.getNickname());
-        return "account/checked-Email";
+        return "json";
     }
+
+
 }
